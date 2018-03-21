@@ -6,14 +6,13 @@ docker run --rm --name dnsmasq -it \
   --no-daemon \
   --cache-size=1000 \
   --no-resolv \
-  --no-negcache \
   --server=80.81.244.235 \
   --server=/cluster.local/127.0.0.1#10053 \
   --server=/in-addr.arpa/127.0.0.1#10053 \
   --server=/ip6.arpa/127.0.0.1#10053 \
   --log-facility=- \
   --log-queries \
-  --address=/de.svc.cluster.local/de.infra.svc.cluster.local/de.cluster.local/de.tibet.traffics-switch.de/com.default.svc.cluster.local/
+  --address=/de.infra.svc.cluster.local/de.svc.cluster.local/de.cluster.local/de.tibet.traffics-switch.de/
 
 docker exec -it dnsmasq apk add --update procps curl bind-tools; docker exec -it dnsmasq sh
  $ dig google.com @127.0.0.1
@@ -23,7 +22,8 @@ docker exec -it dnsmasq apk add --update procps curl bind-tools; docker exec -it
  $ dig connector-staging.traffics-switch.de @127.0.0.1
  $ dig elasticsearchlogs01.tibet.traffics-switch.de @127.0.0.1
  $ dig elasticsearchlogs01.tibet.traffics-switch.de.infra.svc.cluster.local @127.0.0.1
- $ kill -s USR1 1
+
+ $ kill -s USR1 1 # dump stats
 
 docker run -it --rm --name kube-dns gcr.io/google_containers/kubedns-amd64:1.9 --domain=cluster.local --dns-port=10053 --config-map=kube-dns --v=2
 ```

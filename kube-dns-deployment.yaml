@@ -89,10 +89,14 @@ spec:
             memory: 70Mi
         terminationMessagePath: /dev/termination-log
       - args:
-        - --cache-size=2000
+        - --cache-size=1000
         - --no-resolv
-        - --server=127.0.0.1#10053
+        - --server=80.81.244.235
+        - --server=/cluster.local/127.0.0.1#10053
+        - --server=/in-addr.arpa/127.0.0.1#10053
+        - --server=/ip6.arpa/127.0.0.1#10053
         - --log-facility=-
+        - --address=/de.infra.svc.cluster.local/de.svc.cluster.local/de.cluster.local/de.tibet.traffics-switch.de/
         image: gcr.io/google_containers/kube-dnsmasq-amd64:1.4
         imagePullPolicy: IfNotPresent
         livenessProbe:
